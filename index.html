@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CRICK-EAT - Sales Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #e0f7fa, #e8f5e9);
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #2e7d32;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .tracker-container {
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .item:last-child {
+      border-bottom: none;
+    }
+
+    .item-name {
+      font-size: 18px;
+      flex: 1;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .count-display {
+      width: 50px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 16px;
+      background: #f0f0f0;
+      border-radius: 4px;
+      padding: 5px;
+    }
+
+    .btn {
+      padding: 6px 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      background-color: #4caf50;
+      color: white;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .btn:hover {
+      background-color: #388e3c;
+    }
+
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      font-size: 18px;
+      margin-top: 30px;
+      background-color: #1b5e20;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .submit-btn:hover {
+      background-color: #2e7d32;
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 16px;
+      color: #555;
+      padding-bottom: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .controls {
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  CRICK-EAT
+  <div id="currentDate" style="font-size: 16px; font-weight: normal; margin-top: 8px;"></div>
+</header>
+
+
+<div class="tracker-container" id="tracker">
+
+  <!-- Items -->
+  <div class="item">
+    <div class="item-name">Garlic Bread</div>
+    <div class="controls">
+      <button class="btn" onclick="changeCount('garlicBread', -1)">−</button>
+      <div class="count-display" id="garlicBread">0</div>
+      <button class="btn" onclick="changeCount('garlicBread', 1)">+</button>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-name">Sandwich</div>
+    <div class="controls">
+      <button class="btn" onclick="changeCount('sandwich', -1)">−</button>
+      <div class="count-display" id="sandwich">0</div>
+      <button class="btn" onclick="changeCount('sandwich', 1)">+</button>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-name">Maggie</div>
+    <div class="controls">
+      <button class="btn" onclick="changeCount('maggie', -1)">−</button>
+      <div class="count-display" id="maggie">0</div>
+      <button class="btn" onclick="changeCount('maggie', 1)">+</button>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-name">Gatorade</div>
+    <div class="controls">
+      <button class="btn" onclick="changeCount('gatorade', -1)">−</button>
+      <div class="count-display" id="gatorade">0</div>
+      <button class="btn" onclick="changeCount('gatorade', 1)">+</button>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-name">Nimbooz</div>
+    <div class="controls">
+      <button class="btn" onclick="changeCount('nimbooz', -1)">−</button>
+      <div class="count-display" id="nimbooz">0</div>
+      <button class="btn" onclick="changeCount('nimbooz', 1)">+</button>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-name">Coffee</div>
+    <div class="controls">
+      <button class="btn" onclick="changeCount('coffee', -1)">−</button>
+      <div class="count-display" id="coffee">0</div>
+      <button class="btn" onclick="changeCount('coffee', 1)">+</button>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-name">Glass Bottles</div>
+    <div class="controls">
+      <button class="btn" onclick="changeCount('glassBottles', -1)">−</button>
+      <div class="count-display" id="glassBottles">0</div>
+      <button class="btn" onclick="changeCount('glassBottles', 1)">+</button>
+    </div>
+  </div>
+
+  <!-- Submit Button -->
+  <button class="submit-btn" onclick="submitData()">Submit Sales Data</button>
+</div>
+
+<footer>
+  📞 Contact: 9831175078
+</footer>
+
+<script>
+  const itemIds = [
+    "garlicBread",
+    "sandwich",
+    "maggie",
+    "gatorade",
+    "nimbooz",
+    "coffee",
+    "glassBottles"
+  ];
+  
+    // Set today's date on page load
+  window.onload = function() {
+    const today = new Date().toLocaleDateString('en-GB', {
+      day: '2-digit', month: 'short', year: 'numeric'
+    });
+    document.getElementById('currentDate').innerText = `Date: ${today}`;
+  };
+
+  function changeCount(id, delta) {
+    const el = document.getElementById(id);
+    let count = parseInt(el.innerText) + delta;
+    if (count < 0) count = 0;
+    el.innerText = count;
+  }
+
+  function submitData() {
+    const data = {};
+    itemIds.forEach(id => {
+      data[id] = parseInt(document.getElementById(id).innerText);
+    });
+    
+        // Include current date
+    const today = new Date().toISOString().split("T")[0]; // Format: YYYY-MM-DD
+    data.date = today;
+
+    fetch("https://script.google.com/macros/s/AKfycby6jl_lf5bA1lkrjX3TH8zCA7kTtNhxd-_z6Dh9d0RY1yCb736_MuHPkzGZlwr8lUW3/exec", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+    .then(res => res.text())
+    .then(res => alert("Data submitted successfully!"))
+    .catch(err => alert("Submission failed: " + err));
+  }
+</script>
+
+</body>
+</html>
