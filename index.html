@@ -1,201 +1,97 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>CRICK-EAT Tracker</title>
-    <style>
-      body {
-        font-family: 'Segoe UI', sans-serif;
-        background-color: #f2f2f2;
-        text-align: center;
-        padding: 20px;
-      }
-      h1 {
-        color: #2e7d32;
-        font-size: 2em;
-        margin-bottom: 5px;
-      }
-      h3 {
-        color: #555;
-        margin-bottom: 20px;
-      }
-      .item {
-        margin: 15px auto;
-        background: white;
-        padding: 10px 20px;
-        border-radius: 8px;
-        max-width: 300px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      }
-      .item-name {
-        font-weight: bold;
-      }
-      .controls {
-        margin-top: 10px;
-      }
-      .controls button {
-        padding: 5px 10px;
-        font-size: 16px;
-        margin: 0 10px;
-      }
-      .count-display {
-        font-size: 20px;
-        display: inline-block;
-        width: 40px;
-      }
-      #submitBtn {
-        margin-top: 30px;
-        padding: 10px 20px;
-        font-size: 16px;
-        background-color: #2e7d32;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-      #submitBtn:hover {
-        background-color: #1b5e20;
-      }
-      footer {
-        margin-top: 30px;
-        color: #888;
-        font-size: 14px;
-      }
-    </style>
-    <script>
-      const items = [
-        "Garlic Bread", "Sandwich", "Maggie", "Gatorade", "Nimbooz", "Coffee", "Glass Bottles"
-      ];
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CRICK-EAT Sales Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      color: #2e7d32;
+    }
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input {
+      padding: 8px;
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 5px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #2e7d32;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover {
+      background-color: #1b5e20;
+    }
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #888;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
 
-      const counts = {};
+  <h1>CRICK-EAT Tracker</h1>
 
-      function updateDisplay(item) {
-        document.getElementById(item + "-count").textContent = counts[item];
-      }
+  <form action="https://formspree.io/f/xyzjgnzk" method="POST">
+    <input type="hidden" name="_subject" value="Cafe Sales Submission">
 
-      function increment(item) {
-        counts[item]++;
-        updateDisplay(item);
-      }
+    <label for="date">Date</label>
+    <input type="text" id="date" name="date" value="" placeholder="YYYY-MM-DD" required>
 
-      function decrement(item) {
-        if (counts[item] > 0) {
-          counts[item]--;
-          updateDisplay(item);
-        }
-      }
+    <label for="garlicBread">Garlic Bread</label>
+    <input type="number" id="garlicBread" name="garlicBread" value="0" min="0">
 
-      function init() {
-        items.forEach(item => {
-          counts[item] = 0;
-        });
+    <label for="sandwich">Sandwich</label>
+    <input type="number" id="sandwich" name="sandwich" value="0" min="0">
 
-        document.getElementById("date").textContent = "Date: " + new Date().toLocaleDateString();
-      }
+    <label for="maggie">Maggie</label>
+    <input type="number" id="maggie" name="maggie" value="0" min="0">
 
-      function submitData() {
-        const payload = {
-          date: new Date().toLocaleDateString(),
-          garlicBread: counts["Garlic Bread"],
-          sandwich: counts["Sandwich"],
-          maggie: counts["Maggie"],
-          gatorade: counts["Gatorade"],
-          nimbooz: counts["Nimbooz"],
-          coffee: counts["Coffee"],
-          glassBottles: counts["Glass Bottles"]
-        };
+    <label for="gatorade">Gatorade</label>
+    <input type="number" id="gatorade" name="gatorade" value="0" min="0">
 
-fetch("https://script.google.com/macros/s/AKfycbzq6Py4njlEUAuAqpcX_bB3xNbmruExHAKXFe_XtJCw79XYY1q0b8YMu16BRowWu_6C/exec", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify(payload)
-})
-.then(response => response.json())
-.then(data => alert("Submitted successfully: " + data.message))
-.catch(error => {
-  console.error("Fetch error:", error);
-  alert("Submission failed: " + error.message);
-});
-      }
+    <label for="nimbooz">Nimbooz</label>
+    <input type="number" id="nimbooz" name="nimbooz" value="0" min="0">
 
-      window.onload = init;
-    </script>
-  </head>
-  <body>
-    <h1>CRICK-EAT</h1>
-    <h3 id="date"></h3>
+    <label for="coffee">Coffee</label>
+    <input type="number" id="coffee" name="coffee" value="0" min="0">
 
-    <!-- Item tracker UI -->
-    <div id="items-container">
-      <div class="item" id="garlicBread">
-        <div class="item-name">Garlic Bread</div>
-        <div class="controls">
-          <button onclick="decrement('Garlic Bread')">-</button>
-          <span id="Garlic Bread-count" class="count-display">0</span>
-          <button onclick="increment('Garlic Bread')">+</button>
-        </div>
-      </div>
+    <label for="glassBottles">Glass Bottles</label>
+    <input type="number" id="glassBottles" name="glassBottles" value="0" min="0">
 
-      <div class="item" id="sandwich">
-        <div class="item-name">Sandwich</div>
-        <div class="controls">
-          <button onclick="decrement('Sandwich')">-</button>
-          <span id="Sandwich-count" class="count-display">0</span>
-          <button onclick="increment('Sandwich')">+</button>
-        </div>
-      </div>
+    <button type="submit">Submit</button>
+  </form>
 
-      <div class="item" id="maggie">
-        <div class="item-name">Maggie</div>
-        <div class="controls">
-          <button onclick="decrement('Maggie')">-</button>
-          <span id="Maggie-count" class="count-display">0</span>
-          <button onclick="increment('Maggie')">+</button>
-        </div>
-      </div>
+  <footer>Contact: 9831175078</footer>
 
-      <div class="item" id="gatorade">
-        <div class="item-name">Gatorade</div>
-        <div class="controls">
-          <button onclick="decrement('Gatorade')">-</button>
-          <span id="Gatorade-count" class="count-display">0</span>
-          <button onclick="increment('Gatorade')">+</button>
-        </div>
-      </div>
-
-      <div class="item" id="nimbooz">
-        <div class="item-name">Nimbooz</div>
-        <div class="controls">
-          <button onclick="decrement('Nimbooz')">-</button>
-          <span id="Nimbooz-count" class="count-display">0</span>
-          <button onclick="increment('Nimbooz')">+</button>
-        </div>
-      </div>
-
-      <div class="item" id="coffee">
-        <div class="item-name">Coffee</div>
-        <div class="controls">
-          <button onclick="decrement('Coffee')">-</button>
-          <span id="Coffee-count" class="count-display">0</span>
-          <button onclick="increment('Coffee')">+</button>
-        </div>
-      </div>
-
-      <div class="item" id="glassBottles">
-        <div class="item-name">Glass Bottles</div>
-        <div class="controls">
-          <button onclick="decrement('Glass Bottles')">-</button>
-          <span id="Glass Bottles-count" class="count-display">0</span>
-          <button onclick="increment('Glass Bottles')">+</button>
-        </div>
-      </div>
-    </div>
-
-    <button id="submitBtn" onclick="submitData()">Submit</button>
-
-    <footer>
-      Contact Number: 9831175078
-    </footer>
-  </body>
+  <script>
+    // Auto-fill today's date
+    document.getElementById("date").value = new Date().toISOString().split("T")[0];
+  </script>
+</body>
 </html>
